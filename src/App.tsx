@@ -5,7 +5,7 @@ import { createServer, Model } from "miragejs";
 import { useState } from "react";
 import Modal from 'react-modal';
 import { NewTRansactionModal } from "./components/NewTransactionModal";
-import { TransactionProvider, TransactionsContext } from "./TransactionsContext";
+import { TransactionProvider } from "./hooks/useTransactions";
 
 createServer({
 
