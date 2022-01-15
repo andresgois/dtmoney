@@ -1,17 +1,23 @@
 import { Header } from "./components/Header";
 import { Dashboard } from "./components/Dashboard";
 import { GlobalStyle } from "./styles/global";
-import { createServer } from "miragejs";
+import { createServer, Model } from "miragejs";
 import { useState } from "react";
 import Modal from 'react-modal';
 import { NewTRansactionModal } from "./components/NewTransactionModal";
 
 createServer({
+
+  models: {
+    transaction: Model
+  },
+
   routes() {
     this.namespace = 'api';
 
     this.get('/transactions', () => {
-      return [
+      return this.schema.all('transaction')
+      /*return [
         {
           id: 1,
           title: 'Transaction 1',
@@ -20,7 +26,13 @@ createServer({
           category: 'Food',
           createdAt: new Date()
         }
-      ]
+      ]*/
+    })
+
+    this.post("/transactions", (schema, request) => {
+      const data = JSON.parse(request.requestBody);
+      //return data;
+      return schema.create('transaction', data)
     })
   }
 });
